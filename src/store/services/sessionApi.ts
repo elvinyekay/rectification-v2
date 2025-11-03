@@ -29,8 +29,8 @@ const mockBaseQuery: BaseQueryFn<string | FetchArgs, unknown, unknown> = async (
     const method = typeof args === 'string' ? 'GET' : (args.method || 'GET');
     const body = typeof args === 'string' ? undefined : (args.body as unknown);
 
-    // yalnız DEV rejimində mockla və ya VITE_USE_MOCK=true olduqda
-    const useMock = import.meta.env.DEV || import.meta.env.VITE_USE_MOCK === 'true';
+    // yalnız DEV rejimində mockla
+    const useMock = import.meta.env.DEV;
 
     if (useMock && url.startsWith('auth/')) {
         // ---- /auth/login

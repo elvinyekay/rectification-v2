@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
     DndContext,
@@ -37,7 +37,33 @@ interface FormSidebarProps {
     onItemsReorder?: (newItems: MenuItem[]) => void;
 }
 
-// Sortable Item Component
+// 🎹 Invisible hotkeys - no UI display, just functionality
+const getChapterHotkeys = (items: MenuItem[]) => {
+    const hotkeys: Record<string, string> = {};
+    items.forEach((chapter, chapterIndex) => {
+        const chapterKey = (chapterIndex + 1).toString();
+        hotkeys[chapterKey] = chapter.id;
+    });
+    return hotkeys;
+};
+
+const getTabHotkeys = (items: MenuItem[]) => {
+    const hotkeys: Record<string, { section: string; tab: string }> = {};
+    const tabKeys = ['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p'];
+
+    items.forEach((chapter, chapterIndex) => {
+        const chapterKey = (chapterIndex + 1).toString();
+        chapter.children?.forEach((tab, tabIndex) => {
+            if (tabIndex < tabKeys.length) {
+                const comboKey = `${chapterKey}+${tabKeys[tabIndex]}`;
+                hotkeys[comboKey] = { section: chapter.id, tab: tab.id };
+            }
+        });
+    });
+    return hotkeys;
+};
+
+// Sortable Item Component - clean, no hotkey display
 function SortableItem({
                           item,
                           isParent = false,
@@ -46,7 +72,6 @@ function SortableItem({
                           activeSubsection,
                           expandedItems,
                           onItemClick,
-                          // isDragging = false
                       }: {
     item: MenuItem;
     isParent?: boolean;
@@ -55,7 +80,6 @@ function SortableItem({
     activeSubsection?: string;
     expandedItems: string[];
     onItemClick: (item: MenuItem, parentId?: string) => void;
-    isDragging?: boolean;
 }) {
     const {
         attributes,
@@ -147,12 +171,22 @@ export default function FormSidebar({
                                         onSelect,
                                         activeSection,
                                         activeSubsection,
-                                        onItemsReorder = () => {}, // Default empty function
+                                        onItemsReorder = () => {},
                                     }: FormSidebarProps) {
     const [isOpen, setIsOpen] = useState(false);
     const [expandedItems, setExpandedItems] = useState<string[]>([]);
     const [localItems, setLocalItems] = useState(items);
     const [activeId, setActiveId] = useState<string | null>(null);
+    const [pressedKeys, setPressedKeys] = useState<Set<string>>(new Set());
+
+    // Sync items when props change
+    useEffect(() => {
+        setLocalItems(items);
+    }, [items]);
+
+    // Dynamic hotkey generation
+    const chapterHotkeys = getChapterHotkeys(localItems);
+    const tabHotkeys = getTabHotkeys(localItems);
 
     const sensors = useSensors(
         useSensor(PointerSensor, {
@@ -165,17 +199,99 @@ export default function FormSidebar({
         })
     );
 
+    // 🎹 Invisible combination keyboard shortcuts
+    useEffect(() => {
+        const handleKeyDown = (event: KeyboardEvent) => {
+            // Ignore if user is typing in input fields
+            if (event.target instanceof HTMLInputElement || event.target instanceof HTMLTextAreaElement) {
+                return;
+            }
+
+            const key = event.key.toLowerCase();
+
+            // Track pressed keys for combinations
+            setPressedKeys(prev => new Set([...prev, key]));
+
+            // Single key shortcuts
+            if (pressedKeys.size === 0) {
+                // Chapter navigation (1, 2, 3, etc.)
+                if (chapterHotkeys[key]) {
+                    event.preventDefault();
+                    const chapterId = chapterHotkeys[key];
+                    const chapter = localItems.find(item => item.id === chapterId);
+                    if (chapter && chapter.children && chapter.children.length > 0) {
+                        const firstChild = chapter.children[0];
+                        onSelect(chapterId, firstChild.id);
+                        setExpandedItems(prev => [...prev.filter(id => id !== chapterId), chapterId]);
+                    }
+                    return;
+                }
+
+                // Toggle sidebar (Enter)
+                if (key === 'enter') {
+                    event.preventDefault();
+                    setIsOpen(prev => !prev);
+                    return;
+                }
+
+                // Close sidebar (Escape)
+                if (key === 'escape') {
+                    event.preventDefault();
+                    setIsOpen(false);
+                    return;
+                }
+            }
+
+            // Combination key shortcuts (1+Q, 2+A, etc.)
+            const pressedKeysArray = Array.from(pressedKeys).sort();
+            const currentCombo = [...pressedKeysArray, key].sort().join('+');
+
+            if (tabHotkeys[currentCombo]) {
+                event.preventDefault();
+                const { section, tab } = tabHotkeys[currentCombo];
+                onSelect(section, tab);
+                setExpandedItems(prev => [...prev.filter(id => id !== section), section]);
+                setPressedKeys(new Set());
+                return;
+            }
+        };
+
+        const handleKeyUp = (event: KeyboardEvent) => {
+            const key = event.key.toLowerCase();
+            setPressedKeys(prev => {
+                const newSet = new Set(prev);
+                newSet.delete(key);
+                return newSet;
+            });
+        };
+
+        window.addEventListener('keydown', handleKeyDown);
+        window.addEventListener('keyup', handleKeyUp);
+
+        return () => {
+            window.removeEventListener('keydown', handleKeyDown);
+            window.removeEventListener('keyup', handleKeyUp);
+        };
+    }, [localItems, onSelect, pressedKeys, chapterHotkeys, tabHotkeys]);
+
     const toggleExpand = (id: string) => {
         setExpandedItems((prev) =>
             prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id]
         );
     };
 
+    // 🔧 FIXED: handleItemClick with proper subsection handling
     const handleItemClick = (item: MenuItem, parentId?: string) => {
         if (item.children && item.children.length > 0) {
+            // Parent item clicked - expand/collapse and select first child
             toggleExpand(item.id);
+            const firstChild = item.children[0];
+            if (firstChild) {
+                onSelect(item.id, firstChild.id); // ← BU DÜZƏLDILDI
+            }
         } else {
-            onSelect(parentId || item.id, item.children ? undefined : item.id);
+            // Child item clicked - select it
+            onSelect(parentId || item.id, item.id);
             setIsOpen(false);
         }
     };
@@ -247,7 +363,7 @@ export default function FormSidebar({
 
     return (
         <>
-            {/* Hamburger Button */}
+            {/* Hamburger Button - clean, no hotkey indicators */}
             <button
                 onClick={() => setIsOpen(!isOpen)}
                 className="p-2 rounded-lg bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 hover:shadow-md transition-all duration-200 hover:scale-105"
@@ -306,7 +422,6 @@ export default function FormSidebar({
                                         activeSubsection={activeSubsection}
                                         expandedItems={expandedItems}
                                         onItemClick={handleItemClick}
-                                        isDragging={activeId === item.id}
                                     />
 
                                     {/* Sub Items */}
@@ -334,7 +449,6 @@ export default function FormSidebar({
                                                                 activeSubsection={activeSubsection}
                                                                 expandedItems={expandedItems}
                                                                 onItemClick={handleItemClick}
-                                                                isDragging={activeId === subItem.id}
                                                             />
                                                         ))}
                                                     </SortableContext>
