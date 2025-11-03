@@ -1,4 +1,4 @@
-import {User} from "../../types/auth";
+import {User} from "../types/auth.ts";
 
 
 type MockUser = User & {email: string, password: string};

@@ -1,4 +1,4 @@
-import {DocItem} from "../../../src/types/document.ts";
+import {DocItem} from "../types/document.ts";
 
 export const mockDocuments: DocItem[] = [
     {
