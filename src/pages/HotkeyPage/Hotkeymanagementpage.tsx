@@ -15,6 +15,192 @@ interface Hotkey {
 }
 
 const DEFAULT_HOTKEYS: Hotkey[] = [
+    // Form Navigation Hotkeys - Dynamic Chapter/Tab System
+    {
+        id: 'nav-sidebar-toggle',
+        category: 'navigation',
+        action: 'toggle_sidebar',
+        description: 'Sidebar-ı aç/bağla',
+        key: 'Enter',
+        modifiers: [],
+        type: 'keyboard',
+        isCustomizable: true,
+        icon: <Edit2 className="w-4 h-4" />
+    },
+    {
+        id: 'nav-sidebar-close',
+        category: 'navigation',
+        action: 'close_sidebar',
+        description: 'Sidebar-ı bağla',
+        key: 'Escape',
+        modifiers: [],
+        type: 'keyboard',
+        isCustomizable: true,
+        icon: <X className="w-4 h-4" />
+    },
+
+    // Chapter Navigation
+    {
+        id: 'nav-chapter1',
+        category: 'navigation',
+        action: 'goto_chapter1',
+        description: '1-ci fəsilə keç',
+        key: '1',
+        modifiers: [],
+        type: 'keyboard',
+        isCustomizable: true,
+        icon: <Keyboard className="w-4 h-4" />
+    },
+    {
+        id: 'nav-chapter2',
+        category: 'navigation',
+        action: 'goto_chapter2',
+        description: '2-ci fəsilə keç',
+        key: '2',
+        modifiers: [],
+        type: 'keyboard',
+        isCustomizable: true,
+        icon: <Keyboard className="w-4 h-4" />
+    },
+    {
+        id: 'nav-chapter3',
+        category: 'navigation',
+        action: 'goto_chapter3',
+        description: '3-cü fəsilə keç',
+        key: '3',
+        modifiers: [],
+        type: 'keyboard',
+        isCustomizable: true,
+        icon: <Keyboard className="w-4 h-4" />
+    },
+
+    // Chapter 1 Tab Combinations
+    {
+        id: 'nav-tab-1q',
+        category: 'navigation',
+        action: 'goto_tab_1q',
+        description: '1-ci fəsil, 1-ci tab (Əsas səhifə)',
+        key: '1+Q',
+        modifiers: [],
+        type: 'keyboard',
+        isCustomizable: true,
+        icon: <Keyboard className="w-4 h-4" />
+    },
+    {
+        id: 'nav-tab-1w',
+        category: 'navigation',
+        action: 'goto_tab_1w',
+        description: '1-ci fəsil, 2-ci tab (Sənədlər-əsaslar)',
+        key: '1+W',
+        modifiers: [],
+        type: 'keyboard',
+        isCustomizable: true,
+        icon: <Keyboard className="w-4 h-4" />
+    },
+    {
+        id: 'nav-tab-1e',
+        category: 'navigation',
+        action: 'goto_tab_1e',
+        description: '1-ci fəsil, 3-cü tab (Məhdudiyyətlər)',
+        key: '1+E',
+        modifiers: [],
+        type: 'keyboard',
+        isCustomizable: true,
+        icon: <Keyboard className="w-4 h-4" />
+    },
+    {
+        id: 'nav-tab-1r',
+        category: 'navigation',
+        action: 'goto_tab_1r',
+        description: '1-ci fəsil, 4-cü tab (Arxiv)',
+        key: '1+R',
+        modifiers: [],
+        type: 'keyboard',
+        isCustomizable: true,
+        icon: <Keyboard className="w-4 h-4" />
+    },
+    {
+        id: 'nav-tab-1t',
+        category: 'navigation',
+        action: 'goto_tab_1t',
+        description: '1-ci fəsil, 5-ci tab (Passport)',
+        key: '1+T',
+        modifiers: [],
+        type: 'keyboard',
+        isCustomizable: true,
+        icon: <Keyboard className="w-4 h-4" />
+    },
+
+    // Chapter 2 Tab Combinations
+    {
+        id: 'nav-tab-2q',
+        category: 'navigation',
+        action: 'goto_tab_2q',
+        description: '2-ci fəsil, 1-ci tab (Verilmiş sənədlər)',
+        key: '2+Q',
+        modifiers: [],
+        type: 'keyboard',
+        isCustomizable: true,
+        icon: <Keyboard className="w-4 h-4" />
+    },
+    {
+        id: 'nav-tab-2w',
+        category: 'navigation',
+        action: 'goto_tab_2w',
+        description: '2-ci fəsil, 2-ci tab (Hüquqlar)',
+        key: '2+W',
+        modifiers: [],
+        type: 'keyboard',
+        isCustomizable: true,
+        icon: <Keyboard className="w-4 h-4" />
+    },
+    {
+        id: 'nav-tab-2e',
+        category: 'navigation',
+        action: 'goto_tab_2e',
+        description: '2-ci fəsil, 3-cü tab (Fiziki şəxslər)',
+        key: '2+E',
+        modifiers: [],
+        type: 'keyboard',
+        isCustomizable: true,
+        icon: <Keyboard className="w-4 h-4" />
+    },
+    {
+        id: 'nav-tab-2r',
+        category: 'navigation',
+        action: 'goto_tab_2r',
+        description: '2-ci fəsil, 4-cü tab (Hüquqi şəxslər)',
+        key: '2+R',
+        modifiers: [],
+        type: 'keyboard',
+        isCustomizable: true,
+        icon: <Keyboard className="w-4 h-4" />
+    },
+
+    // Chapter 3 Tab Combinations
+    {
+        id: 'nav-tab-3q',
+        category: 'navigation',
+        action: 'goto_tab_3q',
+        description: '3-cü fəsil, 1-ci tab (Məhdudiyyətlər)',
+        key: '3+Q',
+        modifiers: [],
+        type: 'keyboard',
+        isCustomizable: true,
+        icon: <Keyboard className="w-4 h-4" />
+    },
+    {
+        id: 'nav-tab-3w',
+        category: 'navigation',
+        action: 'goto_tab_3w',
+        description: '3-cü fəsil, 2-ci tab (Məlumatlar)',
+        key: '3+W',
+        modifiers: [],
+        type: 'keyboard',
+        isCustomizable: true,
+        icon: <Keyboard className="w-4 h-4" />
+    },
+
     // Form Hotkeys
     {
         id: 'form-double-click',
@@ -96,7 +282,7 @@ const DEFAULT_HOTKEYS: Hotkey[] = [
         icon: <RotateCw className="w-4 h-4" />
     },
 
-    // Navigation Hotkeys
+    // Other Navigation Hotkeys
     {
         id: 'nav-fullscreen-form',
         category: 'navigation',
@@ -111,9 +297,9 @@ const DEFAULT_HOTKEYS: Hotkey[] = [
 ];
 
 const CATEGORY_LABELS = {
-    form: '📋 Form İdarəetmə',
-    pdf: '📄 PDF İdarəetmə',
-    navigation: '🚀 Naviqasiya'
+    form: 'Form İdarəetmə',
+    pdf: 'PDF İdarəetmə',
+    navigation: 'Naviqasiya'
 };
 
 export default function HotkeyManagementPage() {
@@ -145,6 +331,11 @@ export default function HotkeyManagementPage() {
 
     const formatHotkey = (hotkey: Hotkey) => {
         if (hotkey.type === 'mouse') {
+            return hotkey.key;
+        }
+
+        // Handle combination keys like "1+Q"
+        if (hotkey.key.includes('+')) {
             return hotkey.key;
         }
 
@@ -194,8 +385,51 @@ export default function HotkeyManagementPage() {
                         Qısayol İdarəetmə
                     </h1>
                     <p className="text-gray-600 dark:text-gray-400">
-                        Sistem Qısayol Düymələrini görüntülə və redaktə et
+                        Sistem qısayol düymələrini görüntülə və redaktə et
                     </p>
+                </div>
+
+                {/* Stats Cards */}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                    <div className="bg-white dark:bg-gray-800 rounded-lg p-4 border border-gray-200 dark:border-gray-700">
+                        <div className="flex items-center justify-between">
+                            <div>
+                                <p className="text-sm text-gray-500 dark:text-gray-400">Naviqasiya</p>
+                                <p className="text-2xl font-bold text-blue-600 dark:text-blue-400">
+                                    {hotkeys.filter(h => h.category === 'navigation').length}
+                                </p>
+                            </div>
+                            <div className="w-8 h-8 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center">
+                                <Keyboard className="w-4 h-4 text-blue-600 dark:text-blue-400" />
+                            </div>
+                        </div>
+                    </div>
+                    <div className="bg-white dark:bg-gray-800 rounded-lg p-4 border border-gray-200 dark:border-gray-700">
+                        <div className="flex items-center justify-between">
+                            <div>
+                                <p className="text-sm text-gray-500 dark:text-gray-400">Form</p>
+                                <p className="text-2xl font-bold text-green-600 dark:text-green-400">
+                                    {hotkeys.filter(h => h.category === 'form').length}
+                                </p>
+                            </div>
+                            <div className="w-8 h-8 bg-green-100 dark:bg-green-900 rounded-lg flex items-center justify-center">
+                                <Edit2 className="w-4 h-4 text-green-600 dark:text-green-400" />
+                            </div>
+                        </div>
+                    </div>
+                    <div className="bg-white dark:bg-gray-800 rounded-lg p-4 border border-gray-200 dark:border-gray-700">
+                        <div className="flex items-center justify-between">
+                            <div>
+                                <p className="text-sm text-gray-500 dark:text-gray-400">PDF</p>
+                                <p className="text-2xl font-bold text-purple-600 dark:text-purple-400">
+                                    {hotkeys.filter(h => h.category === 'pdf').length}
+                                </p>
+                            </div>
+                            <div className="w-8 h-8 bg-purple-100 dark:bg-purple-900 rounded-lg flex items-center justify-center">
+                                <ZoomIn className="w-4 h-4 text-purple-600 dark:text-purple-400" />
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 {/* Search and Filters */}
@@ -338,13 +572,15 @@ export default function HotkeyManagementPage() {
                 {/* Help Section */}
                 <div className="mt-8 bg-blue-50 dark:bg-blue-950/30 border border-blue-200 dark:border-blue-800 rounded-lg p-6">
                     <h3 className="text-lg font-semibold text-blue-900 dark:text-blue-100 mb-2">
-                        Qeyd
+                        Qeyd və İstifadə
                     </h3>
                     <ul className="text-sm text-blue-800 dark:text-blue-200 space-y-1">
-                        <li>• Keyboard qısayollar Ctrl/Cmd, Shift, Alt kombinasiyaları istifadə edə bilər</li>
-                        <li>• Mouse qısayollar sistem tərəfindən təyin edilir və dəyişdirilə bilməz</li>
-                        <li>• Bəzi qısayollar sistem təhlükəsizliyi üçün redaktə edilə bilməz</li>
-                        <li>• Dəyişikliklər avtomatik yadda saxlanılır</li>
+                        <li>• <strong>Fəsil Navigation:</strong> 1, 2, 3 düymələri ilə fəsillər arası keçid</li>
+                        <li>• <strong>Tab Combination:</strong> 1+Q, 1+W, 2+Q kimi kombinasiyalar ilə direct tab keçidi</li>
+                        <li>• <strong>Dynamic System:</strong> Fəsil və tab sayları artıqca avtomatik genişlənir</li>
+                        <li>• <strong>Mouse Actions:</strong> Sistem tərəfindən təyin edilir və dəyişdirilə bilməz</li>
+                        <li>• <strong>Keyboard Shortcuts:</strong> Ctrl/Cmd, Shift, Alt kombinasiyaları dəstəklənir</li>
+                        <li>• <strong>Auto-save:</strong> Bütün dəyişikliklər avtomatik saxlanılır</li>
                     </ul>
                 </div>
             </div>
