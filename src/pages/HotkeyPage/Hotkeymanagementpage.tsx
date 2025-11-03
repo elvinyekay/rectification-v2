@@ -5,7 +5,6 @@ import Button from "../../components/ui/button/Button";
 interface Hotkey {
     id: string;
     category: 'form' | 'pdf' | 'navigation';
-    action: string;
     description: string;
     key: string;
     modifiers: string[];
@@ -19,7 +18,6 @@ const DEFAULT_HOTKEYS: Hotkey[] = [
     {
         id: 'nav-sidebar-toggle',
         category: 'navigation',
-        action: 'toggle_sidebar',
         description: 'Sidebar-ı aç/bağla',
         key: 'Enter',
         modifiers: [],
@@ -30,7 +28,6 @@ const DEFAULT_HOTKEYS: Hotkey[] = [
     {
         id: 'nav-sidebar-close',
         category: 'navigation',
-        action: 'close_sidebar',
         description: 'Sidebar-ı bağla',
         key: 'Escape',
         modifiers: [],
@@ -43,7 +40,6 @@ const DEFAULT_HOTKEYS: Hotkey[] = [
     {
         id: 'nav-chapter1',
         category: 'navigation',
-        action: 'goto_chapter1',
         description: '1-ci fəsilə keç',
         key: '1',
         modifiers: [],
@@ -54,7 +50,6 @@ const DEFAULT_HOTKEYS: Hotkey[] = [
     {
         id: 'nav-chapter2',
         category: 'navigation',
-        action: 'goto_chapter2',
         description: '2-ci fəsilə keç',
         key: '2',
         modifiers: [],
@@ -65,7 +60,6 @@ const DEFAULT_HOTKEYS: Hotkey[] = [
     {
         id: 'nav-chapter3',
         category: 'navigation',
-        action: 'goto_chapter3',
         description: '3-cü fəsilə keç',
         key: '3',
         modifiers: [],
@@ -78,7 +72,6 @@ const DEFAULT_HOTKEYS: Hotkey[] = [
     {
         id: 'nav-tab-1q',
         category: 'navigation',
-        action: 'goto_tab_1q',
         description: '1-ci fəsil, 1-ci tab (Əsas səhifə)',
         key: '1+Q',
         modifiers: [],
@@ -89,7 +82,6 @@ const DEFAULT_HOTKEYS: Hotkey[] = [
     {
         id: 'nav-tab-1w',
         category: 'navigation',
-        action: 'goto_tab_1w',
         description: '1-ci fəsil, 2-ci tab (Sənədlər-əsaslar)',
         key: '1+W',
         modifiers: [],
@@ -100,7 +92,6 @@ const DEFAULT_HOTKEYS: Hotkey[] = [
     {
         id: 'nav-tab-1e',
         category: 'navigation',
-        action: 'goto_tab_1e',
         description: '1-ci fəsil, 3-cü tab (Məhdudiyyətlər)',
         key: '1+E',
         modifiers: [],
@@ -111,7 +102,6 @@ const DEFAULT_HOTKEYS: Hotkey[] = [
     {
         id: 'nav-tab-1r',
         category: 'navigation',
-        action: 'goto_tab_1r',
         description: '1-ci fəsil, 4-cü tab (Arxiv)',
         key: '1+R',
         modifiers: [],
@@ -122,7 +112,6 @@ const DEFAULT_HOTKEYS: Hotkey[] = [
     {
         id: 'nav-tab-1t',
         category: 'navigation',
-        action: 'goto_tab_1t',
         description: '1-ci fəsil, 5-ci tab (Passport)',
         key: '1+T',
         modifiers: [],
@@ -135,7 +124,6 @@ const DEFAULT_HOTKEYS: Hotkey[] = [
     {
         id: 'nav-tab-2q',
         category: 'navigation',
-        action: 'goto_tab_2q',
         description: '2-ci fəsil, 1-ci tab (Verilmiş sənədlər)',
         key: '2+Q',
         modifiers: [],
@@ -146,7 +134,6 @@ const DEFAULT_HOTKEYS: Hotkey[] = [
     {
         id: 'nav-tab-2w',
         category: 'navigation',
-        action: 'goto_tab_2w',
         description: '2-ci fəsil, 2-ci tab (Hüquqlar)',
         key: '2+W',
         modifiers: [],
@@ -157,7 +144,6 @@ const DEFAULT_HOTKEYS: Hotkey[] = [
     {
         id: 'nav-tab-2e',
         category: 'navigation',
-        action: 'goto_tab_2e',
         description: '2-ci fəsil, 3-cü tab (Fiziki şəxslər)',
         key: '2+E',
         modifiers: [],
@@ -168,7 +154,6 @@ const DEFAULT_HOTKEYS: Hotkey[] = [
     {
         id: 'nav-tab-2r',
         category: 'navigation',
-        action: 'goto_tab_2r',
         description: '2-ci fəsil, 4-cü tab (Hüquqi şəxslər)',
         key: '2+R',
         modifiers: [],
@@ -181,7 +166,6 @@ const DEFAULT_HOTKEYS: Hotkey[] = [
     {
         id: 'nav-tab-3q',
         category: 'navigation',
-        action: 'goto_tab_3q',
         description: '3-cü fəsil, 1-ci tab (Məhdudiyyətlər)',
         key: '3+Q',
         modifiers: [],
@@ -192,7 +176,6 @@ const DEFAULT_HOTKEYS: Hotkey[] = [
     {
         id: 'nav-tab-3w',
         category: 'navigation',
-        action: 'goto_tab_3w',
         description: '3-cü fəsil, 2-ci tab (Məlumatlar)',
         key: '3+W',
         modifiers: [],
@@ -205,7 +188,6 @@ const DEFAULT_HOTKEYS: Hotkey[] = [
     {
         id: 'form-double-click',
         category: 'form',
-        action: 'toggle_check',
         description: 'Checkbox-ı işarələ/işarəni götür',
         key: 'DoubleClick',
         modifiers: [],
@@ -216,7 +198,6 @@ const DEFAULT_HOTKEYS: Hotkey[] = [
     {
         id: 'form-right-click',
         category: 'form',
-        action: 'context_menu',
         description: 'Edit menyusunu aç',
         key: 'RightClick',
         modifiers: [],
@@ -227,7 +208,6 @@ const DEFAULT_HOTKEYS: Hotkey[] = [
     {
         id: 'form-enter',
         category: 'form',
-        action: 'confirm_edit',
         description: 'Editi təsdiqlə',
         key: 'Enter',
         modifiers: [],
@@ -238,7 +218,6 @@ const DEFAULT_HOTKEYS: Hotkey[] = [
     {
         id: 'form-escape',
         category: 'form',
-        action: 'cancel_edit',
         description: 'Editdən imtina et',
         key: 'Escape',
         modifiers: [],
@@ -251,7 +230,6 @@ const DEFAULT_HOTKEYS: Hotkey[] = [
     {
         id: 'pdf-double-left-click',
         category: 'pdf',
-        action: 'zoom_in',
         description: 'PDF-i yaxınlaşdır',
         key: 'DoubleClick',
         modifiers: [],
@@ -262,7 +240,6 @@ const DEFAULT_HOTKEYS: Hotkey[] = [
     {
         id: 'pdf-double-right-click',
         category: 'pdf',
-        action: 'zoom_out',
         description: 'PDF-i uzaqlaşdır',
         key: 'DoubleRightClick',
         modifiers: [],
@@ -273,7 +250,6 @@ const DEFAULT_HOTKEYS: Hotkey[] = [
     {
         id: 'pdf-rotate',
         category: 'pdf',
-        action: 'rotate_180',
         description: 'PDF-i 180° çevir',
         key: 'R',
         modifiers: ['Ctrl'],
@@ -286,7 +262,6 @@ const DEFAULT_HOTKEYS: Hotkey[] = [
     {
         id: 'nav-fullscreen-form',
         category: 'navigation',
-        action: 'toggle_fullscreen',
         description: 'Panel tam ekran/normal',
         key: 'F',
         modifiers: ['Ctrl'],
@@ -311,8 +286,7 @@ export default function HotkeyManagementPage() {
 
     // Filter hotkeys based on search and category
     const filteredHotkeys = hotkeys.filter(hotkey => {
-        const matchesSearch = hotkey.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            hotkey.action.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        const matchesSearch = hotkey.description.toLowerCase().includes(searchTerm.toLowerCase())  ||
             hotkey.key.toLowerCase().includes(searchTerm.toLowerCase());
 
         const matchesCategory = activeCategory === 'all' || hotkey.category === activeCategory;
@@ -511,9 +485,9 @@ export default function HotkeyManagementPage() {
                                                 <div className="font-medium text-gray-900 dark:text-white">
                                                     {hotkey.description}
                                                 </div>
-                                                <div className="text-sm text-gray-500 dark:text-gray-400">
-                                                    {hotkey.action}
-                                                </div>
+                                                {/*<div className="text-sm text-gray-500 dark:text-gray-400">*/}
+                                                {/*    {hotkey.action}*/}
+                                                {/*</div>*/}
                                             </div>
                                         </div>
 
