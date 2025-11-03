@@ -29,8 +29,14 @@ const mockBaseQuery: BaseQueryFn<string | FetchArgs, unknown, unknown> = async (
     const method = typeof args === 'string' ? 'GET' : (args.method || 'GET');
     const body = typeof args === 'string' ? undefined : (args.body as unknown);
 
-    // yalnız DEV rejimində mockla
-    const useMock = import.meta.env.DEV;
+    // yalnız DEV rejimində mockla və ya VITE_USE_MOCK=true olduqda
+    const useMock = import.meta.env.DEV || import.meta.env.VITE_USE_MOCK === 'true';
+    console.log('[mockBaseQuery] useMock check:', {
+        DEV: import.meta.env.DEV,
+        VITE_USE_MOCK: import.meta.env.VITE_USE_MOCK,
+        useMock,
+        url: typeof args === 'string' ? args : args.url
+    });
 
     if (useMock && url.startsWith('auth/')) {
         // ---- /auth/login
