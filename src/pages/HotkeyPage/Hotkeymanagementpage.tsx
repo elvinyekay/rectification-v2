@@ -500,7 +500,7 @@ export default function HotkeyManagementPage() {
                                 {categoryHotkeys.map((hotkey) => (
                                     <div
                                         key={hotkey.id}
-                                        className="px-6 py-4 flex items-center justify-between hover:bg-gray-50 dark:hover:bg-gray-750 transition-colors"
+                                        className="px-6 py-4 flex items-center justify-between hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors"
                                     >
                                         <div className="flex items-center gap-4">
                                             <div className="w-8 h-8 bg-gray-100 dark:bg-gray-700 rounded-lg flex items-center justify-center">

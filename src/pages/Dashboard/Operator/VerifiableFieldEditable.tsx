@@ -36,8 +36,6 @@ export default function VerifiableFieldEditable({
     const [inputValue, setInputValue] = useState("");
     const [correction, setCorrection] = useState("");
 
-    // const editDisabled = accepted;
-
     const correctionExists = correction.trim() !== "";
     const changed = !accepted && correctionExists && correction !== originalValue;
     const finalValue = accepted
@@ -46,28 +44,28 @@ export default function VerifiableFieldEditable({
             ? correction
             : originalValue;
 
+    // 🔧 Fixed dark mode classes
     const base =
-        "rounded-lg p-4 transition-all duration-200  bg-white/80 " +
+        "rounded-lg p-4 transition-all duration-200 bg-white dark:bg-gray-800 " +
         "shadow-xs hover:shadow-sm focus-within:shadow-md relative";
 
     const stateDefault =
-        "border border-gray-200 dark:border-gray-700";
+        "border border-gray-200 dark:border-gray-600";
 
     const stateAccepted =
         "border border-emerald-500/80 dark:border-emerald-400/70 " +
-        "bg-emerald-500/5 dark:bg-emerald-400/5 " +
-        "shadow-sm shadow-emerald-200/30 dark:shadow-emerald-900/30";
+        "bg-emerald-500/5 dark:bg-emerald-400/10 " +
+        "shadow-sm shadow-emerald-200/30 dark:shadow-emerald-800/30";
 
     const stateEditing =
         "border border-amber-500/80 dark:border-amber-400/70 " +
-        "bg-amber-500/5 dark:bg-amber-400/5 " +
-        "shadow-sm shadow-amber-200/30 dark:shadow-amber-900/30";
+        "bg-amber-500/5 dark:bg-amber-400/10 " +
+        "shadow-sm shadow-amber-200/30 dark:shadow-amber-800/30";
 
     const containerClass =
         base +
         " " +
         (accepted ? stateAccepted : (editing || correctionExists ? stateEditing : stateDefault));
-
 
     useEffect(() => {
         onChange?.({accepted, originalValue, newValue: correction, finalValue, changed});
@@ -118,7 +116,6 @@ export default function VerifiableFieldEditable({
         }
     };
 
-
     return (
         <div
             className={containerClass}
@@ -128,7 +125,8 @@ export default function VerifiableFieldEditable({
             onMouseLeave={() => setIsHovered(false)}
         >
             <div className="flex items-start justify-between gap-3">
-                <label className="text-[10px] uppercase tracking-wide font-semibold text-gray-500 pb-1">
+                {/* 🔧 Fixed dark mode label */}
+                <label className="text-[10px] uppercase tracking-wide font-semibold text-gray-500 dark:text-gray-400 pb-1">
                     {label}
                 </label>
 
@@ -177,26 +175,28 @@ export default function VerifiableFieldEditable({
             </div>
 
             <div className="text-md">
-                <div className="text-gray-800 dark:text-gray-200 break-words pb-2">
+                {/* 🔧 Fixed dark mode original value text */}
+                <div className="text-gray-800 dark:text-gray-100 break-words pb-2">
                     {originalValue || "—"}
                 </div>
 
+                {/* 🔧 Fixed dark mode correction display */}
                 {!accepted && correctionExists && (
                     <motion.div
                         initial={{opacity: 0, y: -5}}
                         animate={{opacity: 1, y: 0}}
                         exit={{opacity: 0, y: -5}}
-                        className="mt-2 pt-2 border-t border-amber-200 dark:border-amber-900/20"
+                        className="mt-2 pt-2 border-t border-amber-200 dark:border-amber-700/50"
                     >
                         <div className="flex items-center gap-2 text-sm">
                             {/* Badge */}
                             <span
-                                className="inline-flex select-none px-2 py-1 rounded bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-300 font-semibold text-xs whitespace-nowrap">
+                                className="inline-flex select-none px-2 py-1 rounded bg-amber-100 dark:bg-amber-900/60 text-amber-700 dark:text-amber-200 font-semibold text-xs whitespace-nowrap">
                                 Düzəliş
                             </span>
                             {/* Value with highlight */}
                             <span
-                                className="text-amber-600 dark:text-amber-200 font-medium break-words bg-amber-50/50 dark:bg-amber-950/20 px-2 py-1 rounded">
+                                className="text-amber-600 dark:text-amber-100 font-medium break-words bg-amber-50/50 dark:bg-amber-900/30 px-2 py-1 rounded">
                                 {correction}
                             </span>
                         </div>
@@ -221,7 +221,7 @@ export default function VerifiableFieldEditable({
                             onKeyDown={handleKeyDown}
                             placeholder={placeholder}
                             aria-invalid={required && inputValue.trim() === ""}
-                            className={"!px-3 !py-0 !h-9 "}
+                            className={"!px-3 !py-0 !h-9"}
                             autoFocus
                         />
 
@@ -246,8 +246,9 @@ export default function VerifiableFieldEditable({
                             </Button>
                         </div>
 
+                        {/* 🔧 Fixed dark mode error text */}
                         {required && inputValue.trim() === "" && (
-                            <p className="text-xs text-red-600">Bu sahə məcburidir.</p>
+                            <p className="text-xs text-red-600 dark:text-red-400">Bu sahə məcburidir.</p>
                         )}
                     </motion.div>
                 )}

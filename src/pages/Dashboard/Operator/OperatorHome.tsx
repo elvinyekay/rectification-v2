@@ -6,8 +6,8 @@ import {
 import {NextDoc, NextDocResponse} from "../../../types/document.ts";
 import Button from "../../../components/ui/button/Button.tsx";
 import { useEffect, useRef, useState} from "react";
-import {ReverseIcon} from "../../../icons";
-import {Maximize2, Minimize2, MoreHorizontal} from "lucide-react";
+// import {ReverseIcon} from "../../../icons";
+import {ArrowLeftRight, Maximize2, Minimize2, MoreHorizontal} from "lucide-react";
 import PDFViewer from "../../../components/PDFViewer";
 import FormSide from "./FormSide.tsx";
 
@@ -58,10 +58,11 @@ const OperatorHome = () => {
                 <div className="flex items-center gap-1">
                     <button
                         onClick={() => setReversed(v => !v)}
-                        className="p-2 rounded-lg border border-gray-300 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-                        title="Panelləri çevir"
+                        className="p-2 rounded-lg border border-gray-300 dark:border-gray-700
+          hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors
+          text-gray-700 dark:text-gray-300"
                     >
-                        <ReverseIcon className="w-4 h-4" />
+                        <ArrowLeftRight className="w-4 h-4 dark:text-gray-300" />
                     </button>
 
                     {!compactMode && (
@@ -71,7 +72,7 @@ const OperatorHome = () => {
                                 className={`flex items-center gap-1 px-3 py-2 text-xs rounded-lg border transition-all ${
                                     fullPane === "left"
                                         ? 'bg-blue-100 dark:bg-blue-950 text-blue-700 dark:text-blue-300 border-blue-300 dark:border-blue-700'
-                                        : 'border-gray-300 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800'
+                                        : 'border-gray-300 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300'
                                 }`}
                                 title="PDF tam ekran"
                             >
@@ -84,7 +85,7 @@ const OperatorHome = () => {
                                 className={`flex items-center gap-1 px-3 py-2 text-xs rounded-lg border transition-all ${
                                     fullPane === "right"
                                         ? 'bg-blue-100 dark:bg-blue-950 text-blue-700 dark:text-blue-300 border-blue-300 dark:border-blue-700'
-                                        : 'border-gray-300 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800'
+                                        : 'border-gray-300 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300'
                                 }`}
                                 title="Form tam ekran"
                             >
@@ -111,7 +112,7 @@ const OperatorHome = () => {
                                             setFullPane(fullPane === "left" ? null : "left");
                                             setShowActionsMenu(false);
                                         }}
-                                        className={`w-full flex items-center gap-2 text-left px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 first:rounded-t-lg ${
+                                        className={`w-full flex items-center gap-2 text-left px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-700/50 first:rounded-t-lg text-gray-700 dark:text-gray-300 ${
                                             fullPane === "left" ? 'bg-blue-50 dark:bg-blue-950 text-blue-600 dark:text-blue-400' : ''
                                         }`}
                                     >
@@ -123,7 +124,7 @@ const OperatorHome = () => {
                                             setFullPane(fullPane === "right" ? null : "right");
                                             setShowActionsMenu(false);
                                         }}
-                                        className={`w-full flex items-center gap-2 text-left px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 last:rounded-b-lg ${
+                                        className={`w-full flex items-center gap-2 text-left px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-700/50 last:rounded-b-lg text-gray-700 dark:text-gray-300 ${
                                             fullPane === "right" ? 'bg-blue-50 dark:bg-blue-950 text-blue-600 dark:text-blue-400' : ''
                                         }`}
                                     >
@@ -147,7 +148,7 @@ const OperatorHome = () => {
                                 size="xs"
                                 disabled={isSubmitting}
                             >
-                                Təsdiqlə
+                                Təsdiqlə & Növbəti
                             </Button>
                             <div className="relative">
                                 <button
@@ -201,7 +202,7 @@ const OperatorHome = () => {
         >
             {!fullscreen && (
                 <div className="flex items-center justify-between px-3 py-1">
-                    <span className="text-xs text-gray-500">
+                    <span className="text-xs text-gray-500 dark:text-gray-400">
                         {isLoadingState ? "Yüklənir..." : ""}
                     </span>
                 </div>
@@ -214,10 +215,10 @@ const OperatorHome = () => {
                     ) : data.document.imageUrl ? (
                         <img src={data.document.imageUrl} alt="document" className="max-h-full w-full object-contain"/>
                     ) : (
-                        <div className="grid h-full place-items-center text-sm text-gray-500">Fayl yoxdur</div>
+                        <div className="grid h-full place-items-center text-sm text-gray-500 dark:text-gray-400">Fayl yoxdur</div>
                     )
                 ) : (
-                    <div className="grid h-full place-items-center text-sm text-gray-500">Növbə boşdur</div>
+                    <div className="grid h-full place-items-center text-sm text-gray-500 dark:text-gray-400">Növbə boşdur</div>
                 )}
             </div>
         </div>
