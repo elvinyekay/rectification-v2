@@ -2,7 +2,7 @@ import "@react-pdf-viewer/core/lib/styles/index.css";
 import "@react-pdf-viewer/zoom/lib/styles/index.css";
 import "@react-pdf-viewer/page-navigation/lib/styles/index.css";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { MouseEvent as ReactMouseEvent } from "react";
 import { Worker, Viewer, RotateDirection } from "@react-pdf-viewer/core";
 import { rotatePlugin } from "@react-pdf-viewer/rotate";
@@ -32,6 +32,7 @@ const iconProps = {
 };
 
 export default function PDFViewer({ url }: PDFViewerProps) {
+    const [isRotating, setIsRotating] = useState(false);
     const rotatePluginInstance = rotatePlugin();
     const zoomPluginInstance = zoomPlugin();
     const navigationPluginInstance = pageNavigationPlugin();
@@ -39,6 +40,11 @@ export default function PDFViewer({ url }: PDFViewerProps) {
     const zoomOutActionRef = useRef<(() => void) | null>(null);
     const lastRightClickRef = useRef<number>(0);
     const rotateForwardRef = useRef<(() => void) | null>(null);
+
+    // 🔧 Improved worker URL for better production compatibility
+    const workerUrl = process.env.NODE_ENV === 'production'
+        ? "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js"
+        : "https://unpkg.com/pdfjs-dist@3.11.174/build/pdf.worker.min.js";
 
     const goToNextPage = () => {
         try {
@@ -53,6 +59,32 @@ export default function PDFViewer({ url }: PDFViewerProps) {
             navigationPluginInstance.jumpToPreviousPage?.();
         } catch (error) {
             console.error("jumpToPreviousPage failed", error);
+        }
+    };
+
+    // 🔧 Improved 180° rotation with proper async handling
+    const handleRotate180 = async () => {
+        if (isRotating || !rotateForwardRef.current) return;
+
+        setIsRotating(true);
+        try {
+            // First rotation
+            rotateForwardRef.current();
+
+            // Wait a bit more for the first rotation to complete
+            await new Promise(resolve => setTimeout(resolve, 150));
+
+            // Second rotation
+            if (rotateForwardRef.current) {
+                rotateForwardRef.current();
+            }
+
+            // Wait for second rotation to complete
+            await new Promise(resolve => setTimeout(resolve, 150));
+        } catch (error) {
+            console.error("Rotation failed:", error);
+        } finally {
+            setIsRotating(false);
         }
     };
 
@@ -146,6 +178,7 @@ export default function PDFViewer({ url }: PDFViewerProps) {
                     onClick={onClick}
                     className={toolbarButton}
                     title="90° sola çevir"
+                    disabled={isRotating}
                 >
                     <svg {...iconProps} viewBox="0 0 24 24">
                         <path d="M3 2v6h6" />
@@ -158,52 +191,43 @@ export default function PDFViewer({ url }: PDFViewerProps) {
     const rotateRightBtn =
         rotatePluginInstance.Rotate?.({
             direction: RotateDirection.Forward,
-            children: ({ onClick }: RenderRotateProps) => (
-                (() => {
-                    rotateForwardRef.current = onClick;
-                    return (
-                        <button
-                            type="button"
-                            onClick={() => {
-                                rotateForwardRef.current = onClick;
-                                onClick();
-                            }}
-                            className={toolbarButton}
-                            title="90° sağa çevir"
-                        >
-                            <svg {...iconProps} viewBox="0 0 24 24">
-                                <path d="M21 2v6h-6" />
-                                <path d="M3 12a9 9 0 0 1 9-9c-2.5 0-4.9 1 6.7 2.7L21 8" />
-                            </svg>
-                        </button>
-                    );
-                })()
-            ),
+            children: ({ onClick }: RenderRotateProps) => {
+                rotateForwardRef.current = onClick;
+                return (
+                    <button
+                        type="button"
+                        onClick={onClick}
+                        className={toolbarButton}
+                        title="90° sağa çevir"
+                        disabled={isRotating}
+                    >
+                        <svg {...iconProps} viewBox="0 0 24 24">
+                            <path d="M21 2v6h-6" />
+                            <path d="M3 12a9 9 0 0 1 9-9c2.5 0 4.9 1 6.7 2.7L21 8" />
+                        </svg>
+                    </button>
+                );
+            },
         }) ?? null;
 
-    const rotateHalfBtn =
-        rotatePluginInstance.Rotate?.({
-            direction: RotateDirection.Forward,
-            children: ({ onClick }: RenderRotateProps) => (
-                (() => {
-                    rotateForwardRef.current = onClick;
-                    return (
-                        <button
-                            type="button"
-                            onClick={() => {
-                                rotateForwardRef.current = onClick;
-                                onClick();
-                                setTimeout(onClick, 0);
-                            }}
-                            className={toolbarButton}
-                            title="180° çevir"
-                        >
-                            <RefreshCcw size={16} />
-                        </button>
-                    );
-                })()
-            ),
-        }) ?? null;
+    // 🔧 Improved 180° rotation button
+    const rotateHalfBtn = (
+        <button
+            type="button"
+            onClick={handleRotate180}
+            className={`${toolbarButton} ${isRotating ? 'opacity-50 cursor-not-allowed' : ''}`}
+            title="180° çevir"
+            disabled={isRotating}
+        >
+            {isRotating ? (
+                <div className="animate-spin">
+                    <RefreshCcw size={16} />
+                </div>
+            ) : (
+                <RefreshCcw size={16} />
+            )}
+        </button>
+    );
 
     const handleDoubleClick = (event: ReactMouseEvent<HTMLDivElement>) => {
         if (event.button !== 0) return;
@@ -226,17 +250,16 @@ export default function PDFViewer({ url }: PDFViewerProps) {
         event.preventDefault();
     };
 
+    // 🔧 Improved keyboard event handler
     useEffect(() => {
-        const onKeyDown = (event: KeyboardEvent) => {
+        const onKeyDown = async (event: KeyboardEvent) => {
             const key = event.key;
             const isCtrlOrMeta = event.ctrlKey || event.metaKey;
+
             if (isCtrlOrMeta && !event.shiftKey && !event.altKey) {
                 if (key.toLowerCase() === "r") {
                     event.preventDefault();
-                    if (rotateForwardRef.current) {
-                        rotateForwardRef.current();
-                        setTimeout(() => rotateForwardRef.current && rotateForwardRef.current(), 0);
-                    }
+                    await handleRotate180();
                     return;
                 }
                 if (key === "^") {
@@ -264,12 +287,13 @@ export default function PDFViewer({ url }: PDFViewerProps) {
                 }
             }
         };
+
         window.addEventListener("keydown", onKeyDown);
         return () => window.removeEventListener("keydown", onKeyDown);
-    }, []);
+    }, [isRotating]);
 
     return (
-        <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.11.174/build/pdf.worker.min.js">
+        <Worker workerUrl={workerUrl}>
             <div className="flex h-full flex-col">
                 <div className="flex flex-wrap items-center justify-between gap-3 border-b bg-white p-2 shadow-sm">
                     <div className="flex items-center gap-2 rounded-lg bg-gray-50 p-1">
