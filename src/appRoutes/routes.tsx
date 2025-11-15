@@ -11,6 +11,7 @@ import RoleLanding from "../pages/Dashboard/RoleLanding.tsx";
 import OperatorHome from "../pages/Dashboard/Operator/OperatorHome.tsx";
 import AutoTrimPage from "../pages/Dashboard/Operator/AutoTrimPage.tsx";
 import WorksPage from "../pages/Dashboard/Operator/pages/WorksPage.tsx";
+import HotkeyManagementPage from "../pages/HotkeyPage/Hotkeymanagementpage.tsx";
 
 export const router = createBrowserRouter([
     {
@@ -35,7 +36,7 @@ export const router = createBrowserRouter([
                     },
                     {
                         path: '/operator/hotkeys',
-                        element: <WorksPage/>
+                        element: <HotkeyManagementPage/>
                     },
                     {
                         path: '/operator/works',
