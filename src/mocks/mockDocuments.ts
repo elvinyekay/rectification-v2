@@ -1,4 +1,4 @@
-import {DocItem} from "../types/document.ts";
+import {CompletedTask, DocItem} from "../types/document.ts";
 
 export const mockDocuments: DocItem[] = [
     {
@@ -8,3 +8,223 @@ export const mockDocuments: DocItem[] = [
         type: "new",
     },
 ];
+
+
+export const MOCK_COMPLETED_TASKS: CompletedTask[] = [
+    {
+        id: "task_001",
+        documentId: "DOC-2024-001",
+        documentType: "Mülkiyyət Şəhadətnaməsi",
+        documentNumber: "AZE-123456",
+        applicantName: "Məmmədov Məmməd Məmməd oğlu",
+        operatorName: "Aysel Əliyeva",
+        completedAt: "2024-11-15T14:30:00Z",
+        processingTime: 12,
+        status: "approved",
+        fieldsModified: 3,
+        notes: "Passport nömrəsi düzəldildi",
+        priority: "high",
+        category: "Əmlak Sənədləri"
+    },
+    {
+        id: "task_002",
+        documentId: "DOC-2024-004",
+        documentType: "Mülkiyyət Şəhadətnaməsi",
+        documentNumber: "AZE-901234",
+        applicantName: "Qəhrəmanova Ləyla Qəhrəman qızı",
+        operatorName: "Aysel Əliyeva",
+        completedAt: "2024-11-15T11:15:00Z",
+        processingTime: 22,
+        status: "approved",
+        fieldsModified: 5,
+        notes: "Bütün sahələr yeniləndi",
+        priority: "medium",
+        category: "Əmlak Sənədləri"
+    },
+    {
+        id: "task_003",
+        documentId: "DOC-2024-002",
+        documentType: "Mülkiyyət Şəhadətnaməsi",
+        documentNumber: "AZE-789012",
+        applicantName: "Həsənova Fatimə Həsən qızı",
+        operatorName: "Rəşad Quliyev",
+        completedAt: "2024-11-15T13:45:00Z",
+        processingTime: 8,
+        status: "approved",
+        fieldsModified: 1,
+        notes: "Tarixi təsdiqləndi",
+        priority: "medium",
+        category: "Əmlak Sənədləri"
+    },
+    {
+        id: "task_004",
+        documentId: "DOC-2024-003",
+        documentType: "Mülkiyyət Şəhadətnaməsi",
+        documentNumber: "AZE-345678",
+        applicantName: "İsmayılov Elçin Rəfiq oğlu",
+        operatorName: "Gülnar Mustafayeva",
+        completedAt: "2024-11-15T12:20:00Z",
+        processingTime: 15,
+        status: "rejected",
+        fieldsModified: 0,
+        notes: "Sənəd oxunmur, yenisi tələb olunur",
+        priority: "high",
+        category: "Əmlak Sənədləri"
+    },
+    {
+        id: "task_005",
+        documentId: "DOC-2024-004",
+        documentType: "Mülkiyyət Şəhadətnaməsi",
+        documentNumber: "AZE-901234",
+        applicantName: "Qəhrəmanova Ləyla Qəhrəman qızı",
+        operatorName: "Aysel Əliyeva",
+        completedAt: "2024-11-15T11:15:00Z",
+        processingTime: 22,
+        status: "approved",
+        fieldsModified: 5,
+        notes: "Bütün sahələr yeniləndi",
+        priority: "medium",
+        category: "Əmlak Sənədləri"
+    },
+    {
+        id: "task_006",
+        documentId: "DOC-2024-005",
+        documentType: "Mülkiyyət Şəhadətnaməsi",
+        documentNumber: "AZE-567890",
+        applicantName: "Allahverdiyev Rəşid Allahverdi oğlu",
+        operatorName: "Rəşad Quliyev",
+        completedAt: "2024-11-15T10:30:00Z",
+        processingTime: 6,
+        status: "approved",
+        fieldsModified: 0,
+        notes: "Texniki problem, sonra baxılacaq",
+        priority: "low",
+        category: "Əmlak Sənədləri"
+    },
+    {
+        id: "task_007",
+        documentId: "DOC-2024-006",
+        documentType: "Mülkiyyət Şəhadətnaməsi",
+        documentNumber: "AZE-123789",
+        applicantName: "Abbasova Sevda Abbas qızı",
+        operatorName: "Gülnar Mustafayeva",
+        completedAt: "2024-11-15T09:45:00Z",
+        processingTime: 9,
+        status: "approved",
+        fieldsModified: 2,
+        notes: "İş yeri ünvanı düzəldildi",
+        priority: "medium",
+        category: "Əmlak Sənədləri"
+    },
+    {
+        id: "task_008",
+        documentId: "DOC-2024-009",
+        documentType: "Mülkiyyət Şəhadətnaməsi",
+        documentNumber: "AZE-321654",
+        applicantName: "Vəliyeva Günay Vəli qızı",
+        operatorName: "Gülnar Mustafayeva",
+        completedAt: "2024-11-14T15:15:00Z",
+        processingTime: 11,
+        status: "approved",
+        fieldsModified: 3,
+        notes: "İxtisas sahəsi dəqiqləşdirildi",
+        priority: "low",
+        category: "Əmlak Sənədləri"
+    },
+    {
+        id: "task_009",
+        documentId: "DOC-2024-007",
+        documentType: "Mülkiyyət Şəhadətnaməsi",
+        documentNumber: "AZE-456123",
+        applicantName: "Bağırov Elnur Bağır oğlu",
+        operatorName: "Aysel Əliyeva",
+        completedAt: "2024-11-15T08:20:00Z",
+        processingTime: 18,
+        status: "approved",
+        fieldsModified: 4,
+        notes: "Ünvan və telefon nömrəsi yeniləndi",
+        priority: "high",
+        category: "Əmlak Sənədləri"
+    },
+    {
+        id: "task_010",
+        documentId: "DOC-2024-008",
+        documentType: "Mülkiyyət Şəhadətnaməsi",
+        documentNumber: "AZE-789456",
+        applicantName: "Məhərrəmov Kamil Məhərrəm oğlu",
+        operatorName: "Rəşad Quliyev",
+        completedAt: "2024-11-14T16:30:00Z",
+        processingTime: 25,
+        status: "rejected",
+        fieldsModified: 0,
+        notes: "Sənəd vaxtı keçmiş",
+        priority: "medium",
+        category: "Əmlak Sənədləri"
+    },
+    {
+        id: "task_011",
+        documentId: "DOC-2024-009",
+        documentType: "Mülkiyyət Şəhadətnaməsi",
+        documentNumber: "AZE-321654",
+        applicantName: "Vəliyeva Günay Vəli qızı",
+        operatorName: "Gülnar Mustafayeva",
+        completedAt: "2024-11-14T15:15:00Z",
+        processingTime: 11,
+        status: "approved",
+        fieldsModified: 3,
+        notes: "İxtisas sahəsi dəqiqləşdirildi",
+        priority: "low",
+        category: "Əmlak Sənədləri"
+    },
+    {
+        id: "task_012",
+        documentId: "DOC-2024-010",
+        documentType: "Mülkiyyət Şəhadətnaməsi",
+        documentNumber: "AZE-987321",
+        applicantName: "Xəlilzadə Rauf Xəlil oğlu",
+        operatorName: "Aysel Əliyeva",
+        completedAt: "2024-11-14T14:00:00Z",
+        processingTime: 7,
+        status: "approved",
+        fieldsModified: 1,
+        notes: "Tarixi təsdiqləndi",
+        priority: "high",
+        category: "Əmlak Sənədləri"
+    },
+    {
+        id: "task_013",
+        documentId: "DOC-2024-011",
+        documentType: "Mülkiyyət Şəhadətnaməsi",
+        documentNumber: "AZE-147258",
+        applicantName: "Tağızadə Nigar Tağı qızı",
+        operatorName: "Rəşad Quliyev",
+        completedAt: "2024-11-14T13:30:00Z",
+        processingTime: 13,
+        status: "approved",
+        fieldsModified: 2,
+        notes: "Hesab nömrəsi yeniləndi",
+        priority: "medium",
+        category: "Əmlak Sənədləri"
+    },
+    {
+        id: "task_014",
+        documentId: "DOC-2024-012",
+        documentType: "Mülkiyyət Şəhadətnaməsi",
+        documentNumber: "AZE-369852",
+        applicantName: "Əlizadə Leyla Əli qızı",
+        operatorName: "Gülnar Mustafayeva",
+        completedAt: "2024-11-14T12:45:00Z",
+        processingTime: 16,
+        status: "approved",
+        fieldsModified: 0,
+        notes: "Əlavə sənəd gözlənilir",
+        priority: "low",
+        category: "Əmlak Sənədləri"
+    }
+];
+
+
+
+
+
+

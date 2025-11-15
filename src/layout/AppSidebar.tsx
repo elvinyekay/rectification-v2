@@ -8,7 +8,7 @@ import {
 import {useSidebar} from "../context/SidebarContext";
 import {Role} from "../types/auth.ts";
 import {useAppSelector} from "../store/hooks.ts";
-import {Keyboard} from "lucide-react";
+import {FileStack, Keyboard} from "lucide-react";
 
 type NavItem = {
     name: string;
@@ -38,11 +38,18 @@ const navItems: NavItem[] = [
         roles: ['operator']
     },
     {
+        icon: <FileStack/>,
+        name: "Bütün işlər",
+        path: "/operator/works",
+        roles: ['operator']
+    },
+    {
         icon: <Keyboard/>,
         name: "Qısayol Düymələri",
         path: "/operator/hotkeys",
         roles: ['operator']
     },
+
 ];
 
 const othersItems: NavItem[] = [];
@@ -266,7 +273,7 @@ const AppSidebar: React.FC = () => {
                         <>
                             <img
                                 className="dark:hidden"
-                                src="/images/logo/logo.svg"
+                                src="/images/logo/logo-main.png"
                                 alt="Logo"
                                 width={150}
                                 height={40}
@@ -281,7 +288,7 @@ const AppSidebar: React.FC = () => {
                         </>
                     ) : (
                         <img
-                            src="/images/logo/logo-icon.svg"
+                            src="/images/logo/logo.png"
                             alt="Logo"
                             width={32}
                             height={32}
